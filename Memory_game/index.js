@@ -106,6 +106,7 @@ function flipcard(){
             }  
             if(counter === cards.length/2){
                 refreshBoard();
+                counter = 0;
             }
             clickedlist = [];
         },800)
