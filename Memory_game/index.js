@@ -67,9 +67,10 @@ const cards = [
 
 
 makeBoard();
+//shuffles board
 const shuffledArray = cards.sort((a, b) => 0.5 - Math.random());
 
-
+//Creates board
 function makeBoard(){
 for (let index = 0; index < cards.length; index++) {
     let img = document.createElement('img')
@@ -114,11 +115,13 @@ function flipcard(){
     }
 }
 
-
+//removes all elements and creates a new board
 function refreshBoard(){
-    const elements = document.querySelectorAll('img');
-    elements.forEach(element => {
-        element.setAttribute('src','Pictures/front.jpeg')
-        element.addEventListener('click', flipcard)
-    });
+    cards.sort((a, b) => 0.5 - Math.random())
+    const allImg = document.querySelectorAll('img')
+    for (let index = 0; index < allImg.length; index++) {
+       allImg[index].parentNode.removeChild(allImg[index])
+       
+    }
+    makeBoard();
 }
