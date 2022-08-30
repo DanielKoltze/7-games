@@ -1,0 +1,16 @@
+.grid{
+    display: flex;
+    flex-wrap: wrap;
+    width: 610px;
+    height: 610px;
+
+    }
+.grid div{
+    border-style: solid;
+    width: 200px;
+    height: 200px;
+    
+}
+.mole{
+    background-color: green;
+}
