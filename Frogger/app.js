@@ -6,6 +6,7 @@ let amountOfBLocks = 121
 let frogIndex = 115;
 const width = 11;
 
+
 function createMap(){
     for (let i = 0; i < amountOfBLocks; i++) {
         let element = document.createElement('div')
@@ -13,14 +14,27 @@ function createMap(){
         if(i === 5){
             element.classList.add('end')
         }
+        if(i > 10 && i < 22){
+            element.classList.add('w1')
+            if(i===11){element.classList.add('w1')}
+            if(i===12){element.classList.add('w2')}
+            if(i===13){element.classList.add('w2')}
+            
+           
+           
+        }
+
+            
         if(i === 115){
             element.classList.add('frog')
+        }       
+        container.appendChild(element); 
         }
-        container.appendChild(element);
+
         
     }
    
-}
+
 
 
 

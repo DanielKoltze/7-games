@@ -10,8 +10,6 @@
 .frog{
     background-color: green;
     border-radius: 100px;
-    width: 66px;
-    height: 66px;
 }
 .block{
     width: 66px;
@@ -22,4 +20,10 @@
 }
 .end{
     background-color: red;
+}
+.w1 .w2{
+    background-color: lightblue;
+}
+.w3{
+    background-color: brown;
 }
