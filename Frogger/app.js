@@ -22,20 +22,59 @@ function createMap(){
    
 }
 
+
+
+
+function moveCar(size, startingIndex, endingIndex){
+    for (let index = 0; index < endingIndex; index++) {
+       
+       
+       
+        
+    }
+   
+
+   
+   
+   
+   
+}
+moveCar(2,5,10)
 createMap()
 const blocks = document.querySelectorAll('.block')
 
 document.addEventListener('keyup', e => {
-    console.log(e.key)
-    blocks[frogIndex].classList.remove('frog')
+    
     if(e.key === 'ArrowDown'){
+        if(frogIndex > amountOfBLocks-width-1){
+            return
+        }
+        blocks[frogIndex].classList.remove('frog')
         frogIndex = frogIndex + 11
+        blocks[frogIndex].classList.add('frog')
     }else if(e.key === 'ArrowUp'){
+        if(frogIndex < width){
+            return
+        }
+        blocks[frogIndex].classList.remove('frog')
         frogIndex = frogIndex - 11
+        blocks[frogIndex].classList.add('frog')
     }else if(e.key === 'ArrowLeft'){
+        if(frogIndex%width == 0){
+            return
+        }
+        blocks[frogIndex].classList.remove('frog')
         frogIndex = frogIndex - 1
+        blocks[frogIndex].classList.add('frog')
     }else if(e.key === 'ArrowRight'){
+        if(frogIndex%width == 10){
+            return
+        }
+        blocks[frogIndex].classList.remove('frog')
         frogIndex = frogIndex + 1
+        blocks[frogIndex].classList.add('frog')
     }
-    blocks[frogIndex].classList.add('frog')
+    
 })
+
+

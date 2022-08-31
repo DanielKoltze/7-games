@@ -8,9 +8,6 @@
     flex-wrap: wrap;
 }
 .frog{
-    position: absolute;
-    bottom: 0px;
-    right: 330px;
     background-color: green;
     border-radius: 100px;
     width: 66px;

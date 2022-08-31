@@ -83,7 +83,7 @@ let ballY = 40
 let wayOfX = 2
 
 
-let wayOfY = 3
+let wayOfY = 2
 let ballDiameter = 20
 const ball = document.querySelector('.ball')
 
@@ -125,12 +125,14 @@ function checkCollisionsWithWalls(){
     //checker de forskellige blocks
     let counter = 0;
     let allBlocks = Array.from(document.querySelectorAll('.block'))
-
     for (let i = 0; i < blocks.length; i++) {
-        if(blocks[i].y === ballY && blocks[i].x < ballX && blocks[i].x+blockWidth > ballX){
+        if(blocks[i].y === ballY+20 && blocks[i].x < ballX && blocks[i].x+blockWidth > ballX){
             allBlocks[i].classList.remove('block')
-            blocks.splice(i,1)
+            
             wayOfY = -2
+            console.log(ballY)
+            console.log(blocks[i].y)
+            blocks.splice(i,1)
         }
         
     }   
@@ -138,12 +140,12 @@ function checkCollisionsWithWalls(){
 }
 
 drawBall()
-let interval = setInterval(moveBall,105)
+let interval = setInterval(moveBall,20)
 
 
 //setWidthOfMap(600)
 placeUserInMiddle()
-amountOfBlocks(10)
+amountOfBlocks(20)
 createBlocks()
 
 //fiks at der er en blcok ekstra
