@@ -6,6 +6,10 @@ const blockHeight = 20;
 let containerWidth = container.clientWidth
 let containerHeight = container.clientHeight
 
+let userPositionString = user.style.left
+userPositionString = userPositionString.replace('px','')
+let userPosition = parseInt(userPositionString)
+
 
 class Block{
     constructor(x,y){
@@ -37,16 +41,16 @@ function createBlocks(){
 }
 
 document.addEventListener('keydown', (e) => {
-    let userPositionString = user.style.left
-    userPositionString = userPositionString.replace('px','')
-    let userPosition = parseInt(userPositionString)
-    if(e.key === 'ArrowRight' && userPosition+blockWidth < containerWidth){
-        userPosition = userPosition + 12
-        user.style.left = userPosition + 'px'
-    }else if(e.key === 'ArrowLeft' && userPosition > 0){
-        console.log('fds')
-        userPosition = userPosition - 12
-        user.style.left = userPosition + 'px'
+    let userPositionString2 = user.style.left
+    userPositionString2 = userPositionString2.replace('px','')
+    let userPosition2 = parseInt(userPositionString2)
+
+    if(e.key === 'ArrowRight' && userPosition2+blockWidth < containerWidth){
+        userPosition2 = userPosition2 + 15
+        user.style.left = userPosition2 + 'px'
+    }else if(e.key === 'ArrowLeft' && userPosition2 > 0){
+        userPosition2 = userPosition2 - 15
+        user.style.left = userPosition2 + 'px'
     }
 })
 
@@ -64,6 +68,7 @@ function amountOfBlocks(amount){
             xAxis = (containerWidth%110)/2;
             yAxis = yAxis - 30
             blocks.push(new Block(xAxis,yAxis))
+            xAxis = xAxis + 110;
         }
     }
 }
@@ -71,15 +76,14 @@ function setWidthOfMap(width){
     container.style.width = width + 'px'
     containerWidth = container.clientWidth
 }
-
-
-
-
+ 
 
 let ballX = 290
 let ballY = 40
-let wayOfX = 3
-let wayOfY = 3
+let wayOfX = 2
+
+
+let wayOfY = 2
 let ballDiameter = 20
 const ball = document.querySelector('.ball')
 
@@ -100,30 +104,36 @@ function checkCollisionsWithWalls(){
     /*if(ballX > containerWidth-25 || ballX > 0 || ballX > containerWidth-25 || ballX > 0){
         changeDirection()
     }*/
-    if(ballX > containerWidth-25){
-        wayOfX = -3
-    }else if(ballY > containerHeight-25){
-        wayOfY = -3
+    let userPositionString = user.style.left
+    userPositionString = userPositionString.replace('px','')
+    let userPosition = parseInt(userPositionString)
+    let userPositionY = 30
+    if(ballX > containerWidth-20){
+        wayOfX = -2
+    }else if(ballY > containerHeight-20){
+        wayOfY = -2
     }else if(ballX < 0){
-        wayOfX = 3
+        wayOfX = 2
+
+        //checker bunden
     }else if(ballY < 0){
-        wayOfY = 3
+        // lav om på at man dør hvis mna rammer bunden
+        clearInterval(interval)
+
+        //checker user
+    }else if(userPositionY === ballY && userPosition < ballX && userPosition+blockWidth > ballX){
+        wayOfY = 2
     }
 
 }
-function changeDirection(){
-
-    
-    
-}
 
 drawBall()
-setInterval(moveBall,30)
+let interval = setInterval(moveBall,15)
 
 
 //setWidthOfMap(600)
 placeUserInMiddle()
-amountOfBlocks(5)
+amountOfBlocks(7)
 createBlocks()
 
 
@@ -131,3 +141,6 @@ createBlocks()
 //at man kan skrive alt ind i funktiiner manuelt
 //at user virker
 // at man kan ramme boksene og de forsvinder
+
+
+
