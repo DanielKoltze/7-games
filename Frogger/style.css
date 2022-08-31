@@ -1,0 +1,28 @@
+.container{
+    position: absolute;
+    width: 726px;
+    height: 726px;
+    border-style: solid;
+    border-color: black;
+    display: flex;
+    flex-wrap: wrap;
+}
+.frog{
+    position: absolute;
+    bottom: 0px;
+    right: 330px;
+    background-color: green;
+    border-radius: 100px;
+    width: 66px;
+    height: 66px;
+}
+.block{
+    width: 66px;
+    height: 66px;
+}
+.start{
+    background-color: blue;
+}
+.end{
+    background-color: red;
+}
