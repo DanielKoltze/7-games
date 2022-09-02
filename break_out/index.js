@@ -145,7 +145,7 @@ let interval = setInterval(moveBall,20)
 
 //setWidthOfMap(600)
 placeUserInMiddle()
-amountOfBlocks(20)
+amountOfBlocks(10)
 createBlocks()
 
 //fiks at der er en blcok ekstra
