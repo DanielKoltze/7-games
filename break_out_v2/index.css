@@ -1,0 +1,30 @@
+.container{
+    position: absolute;
+    border-style: solid;
+    width: 600px;
+    height: 400px;
+}
+.block{
+    position: absolute;
+    background-color: red;
+    height: 20px;
+    width: 100px;
+    left: 10px;
+    bottom: 10px;
+    
+}
+.user{
+    position: absolute;
+    background-color: blue;
+    height: 20px;
+    width: 100px;
+    bottom: 10px;
+}
+.ball{
+    position: absolute;
+    background-color: blueviolet;
+    width: 20px;
+    height: 20px;
+    border-radius: 100px;
+
+}

@@ -78,29 +78,50 @@ function setWidthOfMap(width){
 }
  
 
+
+
+
+
+let balls = []
+
+function createBall(xPlace){
+    let newBall = document.createElement("div")
+    newBall.classList.add("ball")
+    newBall.style.left = xPlace + 'px'
+    newBall.style.bottom = 50 + 'px'
+    container.appendChild(newBall)
+    balls.push(newBall)
+    //Math.floor(Math.random)*580 
+}
+
+let wayOfX = 2
+let wayOfY = 2
+
+/*
+
 let ballX = 290
 let ballY = 40
-let wayOfX = 2
-
-
-let wayOfY = 2
 let ballDiameter = 20
 const ball = document.querySelector('.ball')
-
+*/
 
 //ball
 
-function drawBall(){
-    ball.style.left = ballX + 'px'
-    ball.style.bottom = ballY + 'px'
+function drawBall(ball){
+    let xPlaceholder =  ball.style.left
+    let xPlaceholder2 = xPlaceholder.replace('px','')
+    let x = parseInt(xPlaceholder2)
+    let yPlaceholder =  ball.style.bottom
+    let yPlaceholder2 = xPlaceholder.replace('px','')
+    let y = parseInt(yPlaceholder2)
+    x = x + wayOfX
+    y = y + wayOfY
+    ball.style.left = x + 'px'
+    ball.style.bottom = y + 'px'
+    checkCollisionsWithWalls(x,y)
 }
-function moveBall(){
-    ballX = ballX+wayOfX
-    ballY = ballY+wayOfY
-    drawBall()
-    checkCollisionsWithWalls()
-}
-function checkCollisionsWithWalls(){
+
+function checkCollisionsWithWalls(ballX,ballY){
     /*if(ballX > containerWidth-25 || ballX > 0 || ballX > containerWidth-25 || ballX > 0){
         changeDirection()
     }*/
@@ -109,7 +130,7 @@ function checkCollisionsWithWalls(){
     let userPosition = parseInt(userPositionString)
     let userPositionY = 30
     if(ballX > containerWidth-20){
-        wayOfX = -2
+        wayOfX = -2/*
     }else if(ballY > containerHeight-20){
         wayOfY = -2
     }else if(ballX < 0){
@@ -130,17 +151,26 @@ function checkCollisionsWithWalls(){
             allBlocks[i].classList.remove('block')
             
             wayOfY = -2
-            console.log(ballY)
-            console.log(blocks[i].y)
             blocks.splice(i,1)
         }
-        
+        */
     }   
 
 }
 
-drawBall()
-let interval = setInterval(moveBall,20)
+
+function organizeBalls(){
+    balls.forEach(ball => {
+        drawBall(ball)
+    })
+}
+
+createBall(100)
+console.log(balls)
+setInterval(organizeBalls,50)
+
+
+//let interval = setInterval(moveBall,20)
 
 
 //setWidthOfMap(600)

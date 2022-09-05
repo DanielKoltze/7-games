@@ -1,0 +1,17 @@
+.container{
+    width: 600px;
+    height: 600px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.square{
+    width: 194px;
+    height: 194px;
+    border-style: solid;
+}
+img{
+    width: 194px;
+}
+button{
+    margin: 50px;
+}
