@@ -8,9 +8,22 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div class="container">
-        <div class="dealer"></div>
-        <div class="player"></div>
+    <div class="startContainer">
+        <button class="start">Start BlackJack</button>
+    </div>
+    <div class="container" style="display: none;">
+        <div class="dealer">
+            <h1 class="dealerSum">0</h1>
+        </div>
+        <div class="player">
+            <h1 class="playerSum">0</h1>
+        </div>
+        <div class="buttonContainer">
+            <div class="money"><h1>1000kr</h1></div>
+            <div class="deal"><button>DEAL</button></div>
+            <div class="hit"><button>HIT</button></div>
+            <div class="stand"><button>STAND</button></div>
+          </div>
         <script src="app.js"></script>
     </div>
 </body>

@@ -3,20 +3,105 @@ body{
 }
 .dealer{
     position: absolute;
-    background-color: black;
     width: 500px;
     height: 300px;
     left: 50%;
     bottom: 40%;
     transform: translate(-50%,-50%);
-    background-color: black;
 }
 .player{
     position: absolute;
     left: 50%;
     bottom: 0px;
-    transform: translate(-50%,-15%);
-    background-color: black;
+    transform: translate(-50%,-50%);
     width: 500px;
     height: 300px;
+}
+.card{
+    position: relative;
+    width: 120px;
+    transition: all 1s ease;
+}
+
+.player, .dealer{
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    align-items: center;
+    
+}
+.back{
+    width: 120px;  
+    height: 174px;
+    object-fit: none;
+    border-radius: 5px;
+    
+}
+.start{
+   border: none;
+   font-size: 1.5;
+   cursor: pointer;
+   text-decoration: none;
+    width: 150px;
+    height: 40px;
+   color: #fff;
+   border-radius: 10px;
+   background-color: #1e4d1e;
+   border: 2px solid #fff;
+ 
+   
+   
+   
+}
+.startContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:90vh;
+    overflow: hidden;
+}
+.buttonContainer { 
+    bottom: 10px;
+    left: 70%;
+    position: absolute;
+    display: grid;
+    width: 300px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "money money money"
+      "deal hit stand";
+      justify-content: center;
+      align-items: center;
+  }
+  
+  .money { grid-area: money; justify-self: center;}
+  
+  .deal { grid-area: deal; justify-self: center;}
+  
+  .hit { grid-area: hit; justify-self: center;}
+  
+  .stand { grid-area: stand; justify-self: center;}
+  
+  .buttonContainer button {
+    padding: 15px 25px;
+    color: #eee;
+    border: 1px #1864ab solid;
+    background-color: #1864ab;
+  }
+  .buttonContainer button:hover {
+    background-color: #1e4d1e;
+  }
+
+  .playerSum{
+      position: absolute;
+      bottom: 2%;
+      color: #eee;
+  }
+  .dealerSum{
+    position: absolute;
+    bottom: 71%;
+    color: #eee;
 }
