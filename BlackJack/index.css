@@ -1,0 +1,22 @@
+body{
+    background-image: url("/BlackJack/images/board/background.jpg");
+}
+.dealer{
+    position: absolute;
+    background-color: black;
+    width: 500px;
+    height: 300px;
+    left: 50%;
+    bottom: 40%;
+    transform: translate(-50%,-50%);
+    background-color: black;
+}
+.player{
+    position: absolute;
+    left: 50%;
+    bottom: 0px;
+    transform: translate(-50%,-15%);
+    background-color: black;
+    width: 500px;
+    height: 300px;
+}
