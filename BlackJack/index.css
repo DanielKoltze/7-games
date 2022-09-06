@@ -1,5 +1,6 @@
 body{
     background-image: url("/BlackJack/images/board/background.jpg");
+    overflow: hidden;
 }
 .dealer{
     position: absolute;
@@ -20,7 +21,6 @@ body{
 .card{
     position: relative;
     width: 120px;
-    transition: all 1s ease;
 }
 
 .player, .dealer{
@@ -31,10 +31,12 @@ body{
     
 }
 .back{
+    position: relative;
     width: 120px;  
     height: 174px;
     object-fit: none;
     border-radius: 5px;
+    animation: moveCard 1.2s ease;
     
 }
 .start{
@@ -91,7 +93,7 @@ body{
     border: 1px #1864ab solid;
     background-color: #282828;
   }
-  .buttonContainer button:hover {
+  .buttonContainer button:hover, .resetButton:hover {
     background-color: #2196F3;
     cursor: pointer;
   }
@@ -99,13 +101,14 @@ body{
   .playerSum{
       position: absolute;
       bottom: 2%;
-      color: #eee;
+      color: #fff;
   }
   .dealerSum{
     position: absolute;
     bottom: 71%;
-    color: #eee;
+    color: #fff;
 }
+
 
 .money {
     display: flex;
@@ -119,7 +122,132 @@ body{
     padding: 10px;
     justify-content: center;
     align-items: center;
+    color: #fff;
 }
 .money h1{
+    font-size: 27px;
     color: #fff;
+}
+
+
+
+
+
+.inputContainer{
+    width: 300px;
+    height: 80px;
+    bottom: 10px;
+    left: 8%;
+    position: absolute;
+}
+
+
+
+.inputContainer { 
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "white red blue green orange black"
+      "reset reset reset reset reset reset";
+      justify-content: center;
+      align-items: center;
+  }
+  
+  .white { grid-area: white; background-color: grey; }
+  
+  .red { grid-area: red; background-color: red;}
+  
+  .blue { grid-area: blue; background-color: blue;}
+  
+  .green { grid-area: green; background-color: green;}
+  
+  .orange { grid-area: orange; background-color: orange;}
+  
+  .black { grid-area: black; background-color: black}
+  
+  .reset {
+       grid-area: reset; 
+       display: flex;
+       justify-content: center;
+       align-items: center;
+    }
+  
+  .resetButton{
+    width: 150px;
+    height: 27px;
+    color: #eee;
+    border: 1px #1864ab solid;
+    background-color: #282828;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+
+
+  .chip {
+    cursor: pointer;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    border: 7px dashed white;
+    transition: all 1s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: 'Lato', sans-serif;
+    font-size: 26px;
+    margin: 0px 8px;
+    font-size: 10px;
+  }
+  
+ 
+ 
+ 
+  .circle{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      border-radius: 100px;
+      border-color: yellow;
+      border-style: solid;
+      width: 100px;
+      height: 100px;
+      left: 50%;
+      bottom: 0%;
+      transform: translate(-50%,-50%);
+  }
+  .circleText{
+    color: #fff;
+  }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+  .rotate{
+    animation: rotate 1s ease;
+  }
+  @keyframes rotate{
+    from{transform: rotateY(0deg)}
+    to{transform: rotateY(90deg);}
+}
+
+
+
+
+@keyframes moveCard{
+    from{left: 700px;}
+    to{left: 0px;}
+}
+.move{
+    animation: moveCard 1.2s ease;
 }
