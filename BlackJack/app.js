@@ -118,31 +118,41 @@ function initialize(){
         let dealerCard2 = document.createElement('img')
         dealerCard2.src = "back_of_cards.png"
         dealerCard2.classList.add('back')
+        dealerCard2.classList.add('move')
         dealerContainer.appendChild(dealerCard2)
-    },1000)
-    setTimeout(hit,2000)
-    setTimeout(hit,3000)
+    },1800)
+    setTimeout(hit,2600)
+    setTimeout(hit,4300)
     dealButton.removeEventListener('click',initialize)
     resetButton.removeEventListener('click',reset)
    
-        betButtons[0].removeEventListener('click',bet)
-        betButtons[1].removeEventListener('click',bet)
-        betButtons[2].removeEventListener('click',bet)
-        betButtons[3].removeEventListener('click',bet)
-        betButtons[4].removeEventListener('click',bet)
-        betButtons[5].removeEventListener('click',bet)
-        
     
 }
 
 function hitDealer(){
-    let dealerCard = document.createElement('img')
-    let card = createRandomCard()
-    dealerHand.push(card)
-    dealerCard.src = card.imgString
-    dealerCard.classList.add("card")
-    dealerContainer.appendChild(dealerCard)
-    dealerSum.innerHTML = calculateSum(dealerHand)
+    let backCard = document.createElement('img')
+    backCard.src = 'back_of_cards.png'
+    backCard.classList.add('back')
+    backCard.classList.add('move')
+    dealerContainer.appendChild(backCard)
+    setTimeout(() => {
+        backCard.classList.remove('move')
+        backCard.classList.add('rotate1')
+    },800)
+
+
+    setTimeout(() => {
+        backCard.parentNode.removeChild(backCard)
+        let dealerCard = document.createElement('img')
+        let card = createRandomCard()
+        dealerHand.push(card)
+        dealerCard.src = card.imgString
+        dealerCard.classList.add('rotate2')
+        dealerCard.classList.add("card")
+        dealerContainer.appendChild(dealerCard)
+        dealerSum.innerHTML = calculateSum(dealerHand)
+        },1300)
+        
 }
 
 
@@ -172,13 +182,31 @@ function calculateSum(array){
 calculateSum(playerHand)
 
 function hit(e){
+    let backCard = document.createElement('img')
+    backCard.src = 'back_of_cards.png'
+    backCard.classList.add('back')
+    backCard.classList.add('move')
+    playerContainer.appendChild(backCard)
+    setTimeout(() => {
+        backCard.classList.remove('move')
+        backCard.classList.add('rotate1')
+    },800)
+    setTimeout(() => {
+    backCard.parentNode.removeChild(backCard)
     let playerCard = document.createElement('img')
     let card = createRandomCard()
     playerHand.push(card)
     playerCard.src = card.imgString
+    playerCard.classList.add('rotate2')
     playerCard.classList.add("card")
     playerContainer.appendChild(playerCard)
+    
     let sum = calculateSum(playerHand)
+
+        /*if(playerHand.length === 2 && calculateSum(playerHand) === 21){
+            console.log('blackjack')
+        }*/
+
     if(sum > 21){
         playerSum.innerHTML = "busted"
         hitButton.removeEventListener('click',hit)
@@ -190,6 +218,7 @@ function hit(e){
     }else{
         playerSum.innerHTML = sum
     }
+},1300)
 }
 function initializeNew(){
     gameIsRunning = false
@@ -198,8 +227,10 @@ function initializeNew(){
     playerSum.innerHTML = ''
     dealerSum.innerHTML = ''
     const allCards = document.querySelectorAll('.card')
-    const back = document.querySelector('.back')
-    back.parentNode.removeChild(back)
+    const back = document.querySelectorAll('.back')
+    for (let i = 0; i < back.length; i++) {
+        back[i].parentNode.removeChild(back[i])
+    }
       for (let i = 0; i < allCards.length; i++) {
        allCards[i].parentNode.removeChild(allCards[i])
       }
@@ -209,18 +240,72 @@ function initializeNew(){
 }
 
 function youLost(){
+    playerSum.innerHTML = 'you lost'
+    betMoney.textContent = 0 
+}
+
+function youWon(){
+    playerSum.innerHTML = 'you won'
+    amountOfMoney.innerHTML = parseInt(amountOfMoney.textContent) + (parseInt(betMoney.textContent))*2
+    betMoney.textContent = 0 
+}
+function tie(){
+    playerSum.innerHTML = 'tie'
+    amountOfMoney.innerHTML = parseInt(amountOfMoney.textContent) + parseInt(betMoney.textContent)
     betMoney.textContent = 0 
 }
 
 
 function stand(){
     const back = document.querySelector('.back')
-    back.classList.add('rotate')
-    //back.style.transform = 'rotatey(-90deg)'
+    back.classList.add('rotate1')
     setTimeout(()=>{
         back.parentNode.removeChild(back)
-    },1000)
-    setTimeout(hitDealer,1000)
+        let dealerCard = document.createElement('img')
+        let card = createRandomCard()
+        dealerHand.push(card)
+        dealerCard.src = card.imgString
+        dealerCard.classList.add('rotate2')
+        dealerCard.classList.add("card")
+        dealerSum.innerHTML = calculateSum(dealerHand)
+        dealerContainer.appendChild(dealerCard)
+    },500)
+    setTimeout(()=>{
+        // kan ikke løses i et loop
+
+
+
+
+       for (let i = 0; i < 4; i++) {
+           setTimeout(()=>{
+            console.log('hej')
+            if(parseInt(dealerSum.textContent) < 17){
+                hitDealer()
+            }
+
+           },1500*i)
+        
+       }
+    
+    },1300)
+    setTimeout(() => {
+
+        if(parseInt(playerSum.textContent) === parseInt(dealerSum.textContent)){
+            console.log('uafgjort')
+            tie()
+        } else if(parseInt(dealerSum.textContent) > 21 || parseInt(playerSum.textContent) > parseInt(dealerSum.textContent)){
+            console.log('vundet')
+            youWon()
+        }else{
+            console.log('tabte')
+            youLost()
+        }
+
+        
+    },7300)
+    setTimeout(initializeNew,11300)
+    
+
+    //setTimeout(hitDealer,1000)
     
 }
-

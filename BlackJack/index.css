@@ -36,7 +36,7 @@ body{
     height: 174px;
     object-fit: none;
     border-radius: 5px;
-    animation: moveCard 1.2s ease;
+    /*animation: moveCard 1.2s ease;*/
     
 }
 .start{
@@ -233,10 +233,10 @@ body{
  
 
 
-  .rotate{
-    animation: rotate 1s ease;
+  .rotate1{
+    animation: rotate1 0.5s ease;
   }
-  @keyframes rotate{
+  @keyframes rotate1{
     from{transform: rotateY(0deg)}
     to{transform: rotateY(90deg);}
 }
@@ -249,5 +249,17 @@ body{
     to{left: 0px;}
 }
 .move{
-    animation: moveCard 1.2s ease;
+    animation: moveCard 0.8s ease;
+}
+
+
+
+
+
+.rotate2{
+    animation: rotate2 0.5s ease;
+  }
+  @keyframes rotate2{
+    from{transform: rotateY(90deg)}
+    to{transform: rotateY(0deg);}
 }
