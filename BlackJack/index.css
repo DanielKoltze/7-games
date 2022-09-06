@@ -89,10 +89,11 @@ body{
     padding: 15px 25px;
     color: #eee;
     border: 1px #1864ab solid;
-    background-color: #1864ab;
+    background-color: #282828;
   }
   .buttonContainer button:hover {
-    background-color: #1e4d1e;
+    background-color: #2196F3;
+    cursor: pointer;
   }
 
   .playerSum{
@@ -104,4 +105,21 @@ body{
     position: absolute;
     bottom: 71%;
     color: #eee;
+}
+
+.money {
+    display: flex;
+    border-radius: 10px;
+    width: 300px;
+    background-color: #282828;
+    box-shadow: 0 4px 10px rgb(0 0 0 / 30%);
+    height: 40px;
+    border-left: 2px solid #2196F3;
+    line-height: 40px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+}
+.money h1{
+    color: #fff;
 }

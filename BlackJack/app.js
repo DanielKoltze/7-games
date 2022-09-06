@@ -5,6 +5,11 @@ const startContainer = document.querySelector('.startContainer')
 const gameContainer = document.querySelector('.container')
 const playerSum = document.querySelector('.playerSum')
 const dealerSum = document.querySelector('.dealerSum')
+const dealButton = document.querySelector('.deal')
+const hitButton = document.querySelector('.hit')
+const standButton = document.querySelector('.stand')
+
+
 
 
 let dealerHand = []
@@ -27,6 +32,7 @@ function createRandomCard(){
     switch(cardNumber){
         case 1:
             stringPng = stringPng + "ace"
+            cardNumber = 11
             break
         case 11:
             stringPng = stringPng + "jack"
@@ -71,6 +77,7 @@ startButton.addEventListener('click', e => {
 
 
 function initialize(){
+    hitButton.addEventListener('click',hit)
     for (let i = 0; i < 2; i++) {
         let playerCard = document.createElement('img')
         let card = createRandomCard()
@@ -97,13 +104,55 @@ function initialize(){
 
 function calculateSum(array){
     let sum = 0
+    let esCounter = 0;
     for (let i = 0; i < array.length; i++) {
         sum = sum + array[i].number
+        if(array[i].number == 11){
+            esCounter = esCounter + 1
+        }
     }
-    console.log(sum)
+    if(esCounter > 0 && sum > 21){
+        for (let i = 0; i < esCounter; i++) {
+            sum = sum - 10
+            if(sum <= 21){
+                console.log(sum)
+                return sum
+            }
+            
+        }
+    }
     return sum
 }
+
+
+
+
 
 initialize()
 calculateSum(playerHand)
 
+function hit(e){
+    let playerCard = document.createElement('img')
+    let card = createRandomCard()
+    playerHand.push(card)
+    playerCard.src = card.imgString
+    playerCard.classList.add("card")
+    playerContainer.appendChild(playerCard)
+    let sum = calculateSum(playerHand)
+    if(sum > 21){
+        playerSum.innerHTML = "you lost"
+        hitButton.removeEventListener('click',hit)
+        //dealButton.addEventListener('click',initializeNew)
+        //setTimeout(initializeNew,4000)
+    }else{
+        playerSum.innerHTML = sum
+    }
+}
+function initializeNew(){
+
+    dealerHand = []
+    playerHand = []
+    playerContainer.innerHTML = ''
+    dealerContainer.innerHTML = ''
+
+}
