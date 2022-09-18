@@ -76,7 +76,11 @@ function moveSnake(){
         snakeCoordinates.unshift(snakeCoordinates[0]-sideBlocks+1)
     }else if(snakeCoordinates[0] % sideBlocks == 0 && direction === -1){
         snakeCoordinates.unshift(snakeCoordinates[0]+sideBlocks-1)
-    }else{
+    }
+    //else if(snakeCoordinates[0]-sideBlocks < 0 && direction === -sideBlocks){
+        //snakeCoordinates.unshift(snakeCoordinates.length-snakeCoordinates[0])
+    //}
+    else{
     snakeCoordinates.unshift(snakeCoordinates[0]+direction)
     }
     console.log(snakeCoordinates)

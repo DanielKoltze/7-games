@@ -1,0 +1,28 @@
+.box{
+    border-style: solid;
+    border-color: black;
+    height: 80px;
+    margin: 10px;
+}
+.gameContainer{
+    margin: auto;
+
+}
+.reset{
+    
+}
+.col1{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+.grey{
+    background-color: rgb(148, 148, 148);
+}
+.yellow{
+    background-color: rgb(179, 179, 91);
+}
+.green{
+    background-color: rgb(119, 200, 119);
+}
