@@ -1,7 +1,7 @@
 const grid = document.getElementById('grid')
 let width = 30;
 let blockAmount = 400;
-let bombAmount = 40;
+let bombAmount = 60;
 let blockPerLine = 20;
 let blocks = Array.from({length: blockAmount-bombAmount}).fill('blank')
 let gameisRunning = true
@@ -19,6 +19,7 @@ function createBoard(){
         block.classList.add(i)
         block.classList.add(blocks[i]) //husk at ændre classname array
         block.classList.add('block')
+        block.classList.add('notClicked')
         grid.appendChild(block)
     }
 }
@@ -33,25 +34,36 @@ const blocksClick = document.querySelectorAll('.block')
     blocksClick.forEach(block => {
         block.addEventListener('click', (e) => {
             const classNames = e.target.classList
-            
-            if(classNames[1] === 'bomb' || gameisRunning === false){
+            if(gameisRunning === false){
+
+            }
+            else if(classNames[1] === 'bomb'){
                 /*blocksClick.forEach(block => {
                     block.removeEventListener('click')
                 })*/
                 gameisRunning = false
-                alert('You have hit a bomb')
+                blocksClick[e.target.classList[0]].classList.add('bum')
+                setTimeout(() => {
+                    alert('You have hit a bomb')
+                },100)
+                
             }else{
-
-                checkSqaure(e)
+                let square = e.target
+                checkSqaure(square)
 
                 
             }
         })
     })
-    function checkSqaure(e){
+    function checkSqaure(square){
         let counter = 0;
-                let index = e.target.classList[0]
-                const blocks2 = document.querySelectorAll('.block')
+        let index
+        try {
+            index = square.classList[0]
+        } catch (error) {
+            return
+        }
+                
                 //check oppe
                 if(blockPerLine <= index && blocksClick[index-blockPerLine].classList[1] === "bomb"){
                     counter++
@@ -86,6 +98,36 @@ const blocksClick = document.querySelectorAll('.block')
                 }
                 if(counter !== 0){
                     blocksClick[index].innerHTML = counter
+                }else if(blocksClick[index].classList.contains('notClicked')){
+                    try {
+                        if(!(index % blockPerLine === 19)){ 
+                        checkSqaure(blocksClick[parseInt(index)+1])
+                        }
+                        if(!(index % blockPerLine === 0)){ 
+                        checkSqaure(blocksClick[parseInt(index)-1])
+                        }
+                        checkSqaure(blocksClick[parseInt(index)+blockPerLine])
+                        checkSqaure(blocksClick[parseInt(index)-blockPerLine])
+                            //checkSqaure(blocksClick[parseInt(index)+blockPerLine+1])
+                        //checkSqaure(blocksClick[parseInt(index)+blockPerLine-1])
+                        //checkSqaure(blocksClick[parseInt(index)-blockPerLine-1])
+                        //checkSqaure(blocksClick[parseInt(index)-blockPerLine+1])
+                    } catch (error) {
+                        console.log(error)
+                    }
+                      
                 }
+                blocksClick[index].classList.remove('notClicked')
+                
+                
+                //fjerne klassenavnet
                 
     }
+
+/*
+    blocksClick.forEach(block => {
+        block.addEventListener('mousedown', (e) => {
+           
+        })
+    })
+    */

@@ -1,5 +1,5 @@
 #grid{
-    background-color: rgb(162, 160, 160);
+    background-color:  rgb(202, 202, 202);
     width: 600px;
     height: 600px;
     display: flex;
@@ -13,11 +13,20 @@
     align-items: center;
     box-sizing: border-box;
     border: solid;
-    border-color: rgb(85, 85, 85);
+    border-color: rgb(14, 14, 14);
     border-width: 1px;
 
 }
+.notClicked{
+    background-color: rgb(162, 160, 160);
+}
+.notClicked:hover{
+    background-color: rgb(217, 217, 217);
+}
 
-.bomb{
+.bum{
     background-color: black;
+}
+.bomb{
+    /*background-color: black;*/
 }
