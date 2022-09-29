@@ -11,14 +11,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    box-sizing: border-box;
-    border: solid;
-    border-color: rgb(14, 14, 14);
-    border-width: 1px;
+    
 
 }
 .notClicked{
     background-color: rgb(162, 160, 160);
+    border: 5px solid;
+    border-color: #f5f3eb #bab7a9 #bab7a9 #fff9db;
+    box-sizing: border-box;
 }
 .notClicked:hover{
     background-color: rgb(217, 217, 217);
@@ -28,5 +28,5 @@
     background-color: black;
 }
 .bomb{
-    /*background-color: black;*/
+   /* background-color: black;*/
 }

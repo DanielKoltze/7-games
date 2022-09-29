@@ -36,22 +36,23 @@ const blocksClick = document.querySelectorAll('.block')
             const classNames = e.target.classList
             if(gameisRunning === false){
 
+            }else if(classNames.contains('flag')){
+
             }
             else if(classNames[1] === 'bomb'){
                 /*blocksClick.forEach(block => {
                     block.removeEventListener('click')
                 })*/
                 gameisRunning = false
-                blocksClick[e.target.classList[0]].classList.add('bum')
-                setTimeout(() => {
-                    alert('You have hit a bomb')
-                },100)
+                const bombs = document.querySelectorAll('.bomb')
+                /*blocksClick[e.target.classList[0]].classList.add('bum')*/
+                bombs.forEach(bomb => {
+                    bomb.innerHTML = '💣'
+                })
                 
             }else{
                 let square = e.target
                 checkSqaure(square)
-
-                
             }
         })
     })
@@ -96,10 +97,13 @@ const blocksClick = document.querySelectorAll('.block')
                 if(blockAmount-blockPerLine-1 >= index && !(index % blockPerLine === 0) && blocksClick[parseInt(index)+blockPerLine-1].classList[1] === "bomb"){
                     counter++
                 }
+                
                 if(counter !== 0){
                     blocksClick[index].innerHTML = counter
+                    blocksClick[index].classList.remove('notClicked')
                 }else if(blocksClick[index].classList.contains('notClicked')){
-                    try {
+                    blocksClick[index].classList.remove('notClicked')
+                    setTimeout(() => {
                         if(!(index % blockPerLine === 19)){ 
                         checkSqaure(blocksClick[parseInt(index)+1])
                         }
@@ -108,26 +112,30 @@ const blocksClick = document.querySelectorAll('.block')
                         }
                         checkSqaure(blocksClick[parseInt(index)+blockPerLine])
                         checkSqaure(blocksClick[parseInt(index)-blockPerLine])
-                            //checkSqaure(blocksClick[parseInt(index)+blockPerLine+1])
-                        //checkSqaure(blocksClick[parseInt(index)+blockPerLine-1])
-                        //checkSqaure(blocksClick[parseInt(index)-blockPerLine-1])
-                        //checkSqaure(blocksClick[parseInt(index)-blockPerLine+1])
-                    } catch (error) {
-                        console.log(error)
-                    }
-                      
+                    
+                    
+                    },20)
                 }
-                blocksClick[index].classList.remove('notClicked')
+               
+                
                 
                 
                 //fjerne klassenavnet
                 
     }
 
-/*
+
     blocksClick.forEach(block => {
-        block.addEventListener('mousedown', (e) => {
-           
-        })
+            block.addEventListener('contextmenu', (e) => {
+                if(e.target.classList.contains('flag')){
+                    e.target.classList.remove('flag')
+                    e.target.innerHTML = ''
+                }else{
+                e.target.classList.add('flag')
+                e.target.innerHTML = '🚩'
+                }
+            })
     })
-    */
+    
+
+    document.addEventListener('contextmenu', event => event.preventDefault());
