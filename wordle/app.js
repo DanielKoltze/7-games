@@ -13,7 +13,7 @@ async function fetchingWord(){
 }
 findWord()
 
-async function findWord(){
+function findWord(){
     fetchingWord().then(word => {
         currentWord = word
     })
@@ -25,6 +25,7 @@ document.addEventListener('keydown' , (e) => {
    if(rowNumber < 6){
     if(e.key.length === 1 && guess.length < 5){ // ||
         const h1 = document.createElement('h1')
+        h1.style.marginTop = '0.5rem'
         h1.innerHTML = e.key
         row[currentCol].append(h1)
         currentCol++
@@ -51,6 +52,7 @@ function checkWord(){
     let wordArray = String(currentWord).split('')
     for (let i = 0; i < wordArray.length; i++) {
         row[i].classList.add('grey')
+        row[i].style.color = 'white'
         
     }
 
@@ -73,7 +75,7 @@ function checkWord(){
     }
     rowNumber++
     let string = '.col' + rowNumber
-    console.log(string)
+
     row = document.querySelectorAll(string)
     guess = []
     currentCol = 0

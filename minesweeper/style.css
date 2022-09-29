@@ -1,0 +1,23 @@
+#grid{
+    background-color: rgb(162, 160, 160);
+    width: 600px;
+    height: 600px;
+    display: flex;
+    flex-wrap: wrap;
+}
+#grid div{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    border: solid;
+    border-color: rgb(85, 85, 85);
+    border-width: 1px;
+
+}
+
+.bomb{
+    background-color: black;
+}
