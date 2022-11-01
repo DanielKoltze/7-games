@@ -4,3 +4,4 @@ space invaders
 4 på stribe
 flappy bird
 minesweeper
+tetris

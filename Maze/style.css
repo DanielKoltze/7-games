@@ -3,18 +3,6 @@ body{
     justify-content: center;
     align-items: center;
 }
-
 #canvas{
-    width: 1000px;
-    height: 1000px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-}
-
-.cell{
-    width: 200px;
-    height: 200px;
-    background-color: aqua;
-    border-style: solid;
-    box-sizing:  border-box;
+    
 }

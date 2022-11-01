@@ -1,219 +1,211 @@
-const canvasWidth = 1000
-const canvasHeight = 1000
-const cellWidth = 200
-const cellHeight = 200
-const cellRow = 5
-const cellColumn = 5
-let mazeCanvas = document.querySelector('#canvas')
-const cells = document.querySelectorAll('.cell')
-const cellLength = cells.length
+const canvasElement = document.getElementById('canvas')
+const canvas = canvasElement.getContext('2d')
 
+const numberOfRowsAndColumns = 20
+const canvasWidth = canvasElement.width = 600
+const canvasHeight = canvasElement.height = 600
+const blockWidth = canvasWidth/numberOfRowsAndColumns
+
+let currentCell = null
+let currentIndex = 0;
+let stack = []
+
+class Cell{
+    constructor(columnNumber,rowNumber){
+        this.columnNumber = columnNumber
+        this.rowNumber = rowNumber
+        this.thickness = blockWidth
+        this.visited = false
+        this.x = columnNumber * blockWidth
+        this.y = rowNumber * blockWidth
+        //fra top,højre,bund og venstre
+        this.walls = [true,true,true,true]
+        
+    }
+    draw(){
+
+
+        
+
+        //tegne grøn når vi har besøgt den
+        if(this.visited === true){
+            canvas.fillStyle = 'green'
+            canvas.fillRect(this.x,this.y,this.thickness,this.thickness)
+            canvas.stroke()
+        }
+        
+        canvas.beginPath()
+        //venstre
+        if(this.walls[3]){
+        canvas.moveTo(this.x, this.y)
+        canvas.lineTo(this.x,this.y+this.thickness)
+        }
+        //oppe
+        if(this.walls[0]){
+        canvas.moveTo(this.x, this.y)
+        canvas.lineTo(this.x+this.thickness,this.y)
+        }
+        //højre
+        if(this.walls[1]){
+        canvas.moveTo(this.x+this.thickness, this.y)
+        canvas.lineTo(this.x+this.thickness,this.y+this.thickness)
+        }
+        //bunden
+        if(this.walls[2]){
+        canvas.moveTo(this.x,this.y+this.thickness)
+        canvas.lineTo(this.x+this.thickness,this.y+this.thickness)
+        }
+        canvas.stroke();
+        /*
+        canvas.rect(this.x,this.y,this.thickness,this.thickness)
+        canvas.stroke()
+        */
+    }
+
+    getIndex(i,j){
+        if(i < 0 || j < 0 || i > numberOfRowsAndColumns-1 || j > numberOfRowsAndColumns-1){
+            return -1
+        }
+        return i + j * numberOfRowsAndColumns
+    }
+
+    getRandomNeighbor(){
+        let neighbors = []
+
+        let topWall = maze.grid[this.getIndex(this.columnNumber, this.rowNumber - 1)]
+        let rightWall = maze.grid[this.getIndex(this.columnNumber + 1, this.rowNumber)]
+        let bottomWall = maze.grid[this.getIndex(this.columnNumber, this.rowNumber + 1)]
+        let leftWall = maze.grid[this.getIndex(this.columnNumber - 1, this.rowNumber)]
+
+        if(topWall != undefined && !topWall.visited){
+            neighbors.push(topWall)
+        }
+        if(rightWall != undefined && !rightWall.visited){
+            neighbors.push(rightWall)
+        }
+        if(bottomWall != undefined && !bottomWall.visited){
+            neighbors.push(bottomWall)
+        }
+        if(leftWall != undefined && !leftWall.visited){
+            neighbors.push(leftWall)
+        }
+
+        //finder den random
+        if(neighbors.length != 0){
+            let number = Math.floor(Math.random() * neighbors.length);
+            return neighbors[number]
+        }else{
+            return null
+        }
+
+
+    }
+
+
+
+
+}
 
 
 class Maze{
-    constructor(){
+    constructor(cellRow,cellColumn){
         this.rows = cellRow
         this.columns = cellColumn
         this.grid = []
     }
 
     setup(){
-        let idCounter = 0
         for (let i = 0; i < this.rows; i++) {
             for (let j = 0; j < this.columns; j++) {
-                this.grid.push(new Cell(j,i,idCounter))
-                idCounter = idCounter + 1
+                this.grid.push(new Cell(j,i))
             }
         }
+        currentCell = maze.grid[0]
+        currentCell.visited = true
     }
 }
 
 
-class Cell{
-    constructor(col,row,id){
-        this.id = id
-        this.col = col
-        this.row = row
-        this.visited = false
-        this.parent = null
-        this.topWall = true
-        this.bottomWall = true
-        this.leftWall = true
-        this.rightWall = true  
-        this.setWalls()
-    }
 
-    //sætter walls så f.eks første mur ikke har left og top til true
-    setWalls(){
-        if(this.id < cellRow){
-            this.topWall = false
-        }else if(cells.length-cellRow <= this.id){
-            this.bottomWall = false
-        }
-        //fjerner de cells som ikke har en rightWall
-        if(this.id % cellColumn === 4){
-            this.rightWall = false
-            //samme gældende for venstre side
-        }else if(this.id % cellColumn === 0){
-            this.leftWall = false
-        }
-        
-    }
-    getRandomValidWall(){
-        //Math.floor(Math.random() * 4)+1
-        let list = [1,2,3,4]
-        /*
-        if(this.visited === true){
-            return null
-        }
-        */
-        for (let i = 0; i < 4; i++) {
-            //shuffler vi og bruger pop på bagerste element. Hvis alle er false så retunerer true og så ved vi at vi skal tilbage til vores parent
-            let shuffledList = list.sort((a, b) => 0.5 - Math.random());
-            //definerer top som 1, right som 2 , bottom som 3 og left som 4
-            switch(shuffledList[shuffledList.length-1]){
-                case 1:
-                    if(this.topWall === true){
-                        return 'top'
-                    }
-                    shuffledList.pop()
-                    break
-                 case 2:
-                    if(this.rightWall === true){
-                        return 'right'
-                    }
-                    shuffledList.pop()
-                    break
-                 case 3:
-                    if(this.bottomWall === true){
-                        return 'bottom'
-                    }
-                    shuffledList.pop()
-                    break
-                 case 4:
-                    if(this.leftWall === true){
-                        return 'left'
-                    }
-                    shuffledList.pop()
-                    break
-                    
-            }
-            
-        }
-        return null
-    }
-}
 
-let maze = new Maze()
+
+
+
+
+
+
+
+const maze = new Maze(numberOfRowsAndColumns,numberOfRowsAndColumns)
 maze.setup()
 
 
 
-mazeRandomize()
-function mazeRandomize(){
+
+
+
+function updateCanvas(){
+    canvas.fillStyle = 'lightblue'
+    canvas.fillRect(0,0,canvasWidth,canvasHeight) 
+    drawCells()
+}
+
+function drawCells(){
+
     
-    let index = 0
-    let wall
-    let grid = maze.grid
-    for (let i = 0; i < 50; i++) {
-        //returnerer en valid tilfældig wall og hvis der ikke er en valid wall så vil der returnere null og gå til parent
-        wall = grid[index].getRandomValidWall()
-        if(wall !== null){
-            
-            if(wall === 'right' && grid[index + 1].visited === false){
-                grid[index].visited = true
-                //setAllWAllsToFalse(index,grid)
-                grid[index].rightWall = false
 
-                cells[index].style.borderRight = 'none'
-                index = index + 1
-                grid[index].parent = index - 1
-                cells[index].style.borderLeft = 'none'
-                grid[index].leftWall = false
-          }else if(wall === 'bottom'  && grid[index + cellRow].visited === false){
-                grid[index].visited = true
-                //setAllWAllsToFalse(index,grid)
-                grid[index].bottomWall = false
+    
+    maze.grid.forEach(cell => {
+        cell.draw()
+    })
 
-                cells[index].style.borderBottom = 'none'
-                index = index + cellRow
-                grid[index].parent = index - cellRow
-                cells[index].style.borderTop = 'none'
-                grid[index].topWall = false
-          }else if(wall === 'top'  && grid[index - cellRow].visited === false){
-                grid[index].visited = true
-                //setAllWAllsToFalse(index,grid)
-                grid[index].topWall = false
+    let neighbor = currentCell.getRandomNeighbor()
 
-                cells[index].style.borderTop = 'none'
-                index = index - cellRow
-                grid[index].parent = index + cellRow
-                cells[index].style.borderBottom = 'none'
-                grid[index].bottomWall = false
-         }else if(wall === 'left'  && grid[index - 1].visited === false){
-                grid[index].visited = true
-                //setAllWAllsToFalse(index,grid)
-                grid[index].leftWall = false
+    
 
-                cells[index].style.borderLeft = 'none'
-                index = index - 1
-                grid[index].parent = index + 1
-                cells[index].style.borderRight = 'none'
-                grid[index].rightWall = false
-      }
-      
-      
-      
-      
-      
-      else if(wall === 'left'){
-        grid[index].leftWall = false
-      }else if(wall === 'top'){
-        grid[index].topWall = false
-      }else if(wall === 'right'){
-        grid[index].rightWall = false
-      }else if(wall === 'bottom'){
-        grid[index].bottomWall = false
-      }
-
-
-
-
-
-          
-    }else{
-        index = grid[index].parent
-    }
+    
+    if(neighbor != null){
         
-        /*
-        else if(wall === 'top'){
-            cells[index].style.borderTop = 'none'
-            index = index + cellRow
-            cells[index].style.borderTop = 'none'
-        }else if(wall === 'bottom'){
-            cells[index].style.borderBottom = 'none'
-            index = index + cellRow
-            cells[index].style.borderTop = 'none'
-        }
-        */
-       
-       
 
+        //1
+
+        //2
+        stack.push(currentCell)
+        //3
+        removeWall(currentCell,neighbor)
+        //4
+        currentCell = neighbor
+        currentCell.visited = true
+    }else if(stack.length != 0){
+        const placeholder = stack.pop()
+        currentCell = placeholder
+        
+
+    }
+   
+   
+}
+
+
+
+
+function removeWall(current,neighbor){
+    const x = current.columnNumber-neighbor.columnNumber
+    const y = current.rowNumber-neighbor.rowNumber
+    if(x === -1){
+        current.walls[1] = false
+        neighbor.walls[3] = false
+    }else if(x === 1){
+        current.walls[3] = false
+        neighbor.walls[1] = false
+    }
+    if(y === -1){
+        current.walls[2] = false
+        neighbor.walls[0] = false
+    }else if(y === 1){
+        current.walls[0] = false
+        neighbor.walls[2] = false
     }
 }
 
-function setAllWAllsToFalse(index, list){
-    
-        list[index].bottomWall = false
-        list[index].topWall = false
-        list[index].leftWall = false
-        list[index].rightWall = false
-        
-    
-}
 
-//cells[1].style.borderRight = 'none'
-
-maze.grid.forEach( cell => {
-    console.log(cell)
-})
+setInterval(updateCanvas,1)
