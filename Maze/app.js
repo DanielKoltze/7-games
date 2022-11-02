@@ -1,7 +1,7 @@
 const canvasElement = document.getElementById('canvas')
 const canvas = canvasElement.getContext('2d')
 
-const numberOfRowsAndColumns = 20
+const numberOfRowsAndColumns = 30
 const canvasWidth = canvasElement.width = 600
 const canvasHeight = canvasElement.height = 600
 const blockWidth = canvasWidth/numberOfRowsAndColumns
@@ -105,7 +105,7 @@ class Cell{
 
 
 }
-
+stack.push(new Cell(-1,-1))
 
 class Maze{
     constructor(cellRow,cellColumn){
@@ -144,6 +144,7 @@ maze.setup()
 
 
 function updateCanvas(){
+
     canvas.fillStyle = 'lightblue'
     canvas.fillRect(0,0,canvasWidth,canvasHeight) 
     drawCells()
@@ -177,6 +178,12 @@ function drawCells(){
         currentCell.visited = true
     }else if(stack.length != 0){
         const placeholder = stack.pop()
+
+        //cheap måde at stopppe loop på. I starten af stack er en x = -1 og y = -1 pushet
+        if(placeholder.rowNumber === -1 || placeholder.columnNumber === -1){
+            clearInterval(interval)
+        }
+
         currentCell = placeholder
         
 
@@ -208,4 +215,4 @@ function removeWall(current,neighbor){
 }
 
 
-setInterval(updateCanvas,1)
+let interval = setInterval(updateCanvas,20)
